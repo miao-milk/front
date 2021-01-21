@@ -20,6 +20,7 @@ export default {
         navList:[
         {name:'/menberList',navItem:'会员集中营'},
         {name:'/menberLabel',navItem:'会员标签'},
+        {name:'/menberGroup',navItem:'会员分组'},
         {name:'/menberGrade',navItem:'会员消费等级'},
         ]
       };

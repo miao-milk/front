@@ -7,6 +7,8 @@ import MenblePortrait from '../components/Menber/MenberPortrait'
 import MenberList from '../components/Menber/MenberList'
 import MenberLabel from '../components/Menber/MenberLabel'
 import MenberGrade from '../components/Menber/MenberGrade'
+import MenberGroup from '../components/Menber/MenberGroup'
+import Group from '../components/Group'
 
 Vue.use(VueRouter)
 const routes = [
@@ -14,6 +16,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/Group',
+    name: 'Group',
+    component: Group
   },
   {
     path: '/menber',
@@ -34,6 +41,11 @@ const routes = [
         path: '/menberLabel',
         name: 'menberLabel',
         component: MenberLabel
+      },
+      {
+        path: '/menberGroup',
+        name: 'menberGroup',
+        component: MenberGroup
       },
       {
         path: '/menberPortrait',
