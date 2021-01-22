@@ -6,7 +6,8 @@
   </el-header>
   <el-container>
     <el-container>
-      <el-main>首页</el-main>
+      <top-view></top-view>
+       <b-map-scatter />
       <el-footer>Footer</el-footer>
     </el-container>
   </el-container>
@@ -15,12 +16,16 @@
 </template>
 
 <script>
+import TopView from '../components/TopView'
 import PageHeader from '../components/PageHeader'
+import BMapScatter from '../components/BMapScatter'
 
 export default {
   name: 'Home',
   components: {
-    PageHeader
+    TopView,
+    PageHeader,
+    BMapScatter
   }
 }
 </script>
