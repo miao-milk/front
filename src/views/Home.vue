@@ -7,7 +7,7 @@
   <el-container>
     <el-container>
       <top-view></top-view>
-       <b-map-scatter />
+      <div style="width:100%; height: 600px;  flex: 0 0 80%;  margin-top: 20px;"><b-map-scatter /></div>
       <el-footer>Footer</el-footer>
     </el-container>
   </el-container>

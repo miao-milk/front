@@ -1,5 +1,12 @@
 <template>
-  <div id="myChart"></div>
+  <ve-bmap
+    :settings="chartSettings"
+    :title="title"
+    :tooltip="{}"
+    :series="chartSeries"
+    height="100%"
+  >
+  </ve-bmap>
 </template>
 
 <script>
@@ -388,195 +395,198 @@ var geoCoordMap = {
     '武汉':[114.31,30.52],
     '大庆':[125.03,46.58]
 };
+ 
+  const convertData = function (data, geo) {
+    const res = []
+    data.forEach(item => {
+      const { name, value } = item
+      const coord = geo[name]
+      res.push({
+        name,
+        value: [...coord, value]
+      })
+    })
+    return res
+  }
 
-var convertData = function (data) {
-    var res = [];
-    for (var i = 0; i < data.length; i++) {
-        var geoCoord = geoCoordMap[data[i].name];
-        if (geoCoord) {
-            res.push({
-                name: data[i].name,
-                value: geoCoord.concat(data[i].value)
-            });
-        }
-    }
-    return res;
-};
-
-option = {
-    title: {
-        text: '全国主要城市空气质量 - 百度地图',
-        subtext: 'data from PM25.in',
-        sublink: 'http://www.pm25.in',
-        left: 'center'
-    },
-    tooltip : {
-        trigger: 'item'
-    },
-    bmap: {
-        center: [104.114129, 37.550339],
-        zoom: 5,
-        roam: true,
-        mapStyle: {
-            styleJson: [{
+  /* eslint-disable */
+  export default {
+    data() {
+      return {
+        title: {
+          text: '店铺用户分布数据大盘',
+          subtext: '用户分布数据',
+          sublink: '',
+          left: 'center'
+        },
+        chartSettings: {
+          key: 'G1LFyjrNGIkns5OfpZnrCGAKxpycPLwb',
+          bmap: {
+            center: [104.114129, 37.550339],
+            zoom: 5,
+            roam: false,
+            mapStyle: {
+              styleJson: [{
                 'featureType': 'water',
                 'elementType': 'all',
                 'stylers': {
-                    'color': '#d1d1d1'
+                  'color': '#d1d1d1'
                 }
-            }, {
+              }, {
                 'featureType': 'land',
                 'elementType': 'all',
                 'stylers': {
-                    'color': '#f3f3f3'
+                  'color': '#f3f3f3'
                 }
-            }, {
+              }, {
                 'featureType': 'railway',
                 'elementType': 'all',
                 'stylers': {
-                    'visibility': 'off'
+                  'visibility': 'off'
                 }
-            }, {
+              }, {
                 'featureType': 'highway',
                 'elementType': 'all',
                 'stylers': {
-                    'color': '#fdfdfd'
+                  'color': '#fdfdfd'
                 }
-            }, {
+              }, {
                 'featureType': 'highway',
                 'elementType': 'labels',
                 'stylers': {
-                    'visibility': 'off'
+                  'visibility': 'off'
                 }
-            }, {
+              }, {
                 'featureType': 'arterial',
                 'elementType': 'geometry',
                 'stylers': {
-                    'color': '#fefefe'
+                  'color': '#fefefe'
                 }
-            }, {
+              }, {
                 'featureType': 'arterial',
                 'elementType': 'geometry.fill',
                 'stylers': {
-                    'color': '#fefefe'
+                  'color': '#fefefe'
                 }
-            }, {
+              }, {
                 'featureType': 'poi',
                 'elementType': 'all',
                 'stylers': {
-                    'visibility': 'off'
+                  'visibility': 'off'
                 }
-            }, {
+              }, {
                 'featureType': 'green',
                 'elementType': 'all',
                 'stylers': {
-                    'visibility': 'off'
+                  'visibility': 'off'
                 }
-            }, {
+              }, {
                 'featureType': 'subway',
                 'elementType': 'all',
                 'stylers': {
-                    'visibility': 'off'
+                  'visibility': 'off'
                 }
-            }, {
+              }, {
                 'featureType': 'manmade',
                 'elementType': 'all',
                 'stylers': {
-                    'color': '#d1d1d1'
+                  'color': '#d1d1d1'
                 }
-            }, {
+              }, {
                 'featureType': 'local',
                 'elementType': 'all',
                 'stylers': {
-                    'color': '#d1d1d1'
+                  'color': '#d1d1d1'
                 }
-            }, {
+              }, {
                 'featureType': 'arterial',
                 'elementType': 'labels',
                 'stylers': {
-                    'visibility': 'off'
+                  'visibility': 'off'
                 }
-            }, {
+              }, {
                 'featureType': 'boundary',
                 'elementType': 'all',
                 'stylers': {
-                    'color': '#fefefe'
+                  'color': '#fefefe'
                 }
-            }, {
+              }, {
                 'featureType': 'building',
                 'elementType': 'all',
                 'stylers': {
-                    'color': '#d1d1d1'
+                  'color': '#d1d1d1'
                 }
-            }, {
+              }, {
                 'featureType': 'label',
                 'elementType': 'labels.text.fill',
                 'stylers': {
-                    'color': '#999999'
+                  'color': '#999999'
                 }
-            }]
-        }
-    },
-    series : [
-        {
-            name: 'pm2.5',
+              }]
+            }
+          }
+        },
+        chartSeries: [
+            {
+            name: '销售额',
             type: 'scatter',
             coordinateSystem: 'bmap',
-            data: convertData(data),
-            symbolSize: function (val) {
-                return val[2] / 10;
-            },
+            data: convertData(data, geoCoordMap),
             encode: {
-                value: 2
-            },
-            label: {
-                formatter: '{b}',
-                position: 'right',
-                show: false
+              value: 2
             },
             itemStyle: {
-                color: 'purple'
+              color: 'purple'
+            },
+            symbolSize: function (val) {
+              return val[2] / 10
+            },
+            label: {
+              show: false,
+              position: 'right',
+              formatter: function (v) {
+                return `${v.data.name} - ${v.data.value[2]}`
+              }
             },
             emphasis: {
-                label: {
-                    show: true
-                }
+              label: {
+                show: true
+              }
             }
-        },
-        {
-            name: 'Top 5',
+          },
+          {
+            name: 'Top 10',
             type: 'effectScatter',
             coordinateSystem: 'bmap',
             data: convertData(data.sort(function (a, b) {
-                return b.value - a.value;
-            }).slice(0, 6)),
+              return b.value - a.value
+            }), geoCoordMap).slice(0, 10),
             symbolSize: function (val) {
-                return val[2] / 10;
+              return val[2] / 10
             },
             encode: {
-                value: 2
+              value: 2
             },
-            showEffectOn: 'render',
-            rippleEffect: {
-                brushType: 'stroke'
+            label: {
+              formatter: function (v) {
+                return `${v.data.name} - ${v.data.value[2]}`
+              },
+              position: 'right',
+              show: true
             },
             hoverAnimation: true,
-            label: {
-                formatter: '{b}',
-                position: 'right',
-                show: true
+            rippleEffect: {
+              brushType: 'stroke'
             },
             itemStyle: {
-                color: 'purple',
-                shadowBlur: 10,
-                shadowColor: '#333'
-            },
-            zlevel: 1
-        }
-    ]
-};
-
-var mapChart = Vue.prototype.$echarts.init(document.getElementById('myChart'));   //  初始化echarts
-
-mapChart.setOption(option)
+              color: 'purple',
+              shadowBlur: 10,
+              shadowColor: '#333'
+            }
+          }
+        ]
+      }
+    },
+ 
+  }
 </script>
