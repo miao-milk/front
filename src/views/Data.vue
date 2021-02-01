@@ -5,9 +5,13 @@
     <page-header></page-header>
   </el-header>
   <el-container>
-    <el-aside width="200px">Aside</el-aside>
+    <el-aside width="200px">
+      <lift-menu></lift-menu>
+    </el-aside>
     <el-container>
-      <el-main>数据中心</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
   </el-container>
@@ -17,11 +21,13 @@
 
 <script>
 import PageHeader from '../components/PageHeader'
+import LiftMenu from '../components/LiftMenu/DataLift'
 
 export default {
   name: 'Home',
   components: {
-    PageHeader
+    PageHeader,
+    LiftMenu
   }
 }
 </script>

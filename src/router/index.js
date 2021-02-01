@@ -9,6 +9,13 @@ import MenberLabel from '../components/Menber/MenberLabel'
 import MenberGrade from '../components/Menber/MenberGrade'
 import MenberGroup from '../components/Menber/MenberGroup'
 import Group from '../components/Group'
+import ActionAnalysis from '../components/Analysis/ActionAnalysis.vue'
+import GoodsAnalysis from '../components/Analysis/GoodsAnalysis'
+import MenberAnalysis from '../components/Analysis/MenberAnalysis'
+import RAnalysis from '../components/Analysis/RAnalysis'
+import FAnalysis from '../components/Analysis/FAnalysis'
+import MAnalysis from '../components/Analysis/MAnalysis'
+
 
 Vue.use(VueRouter)
 const routes = [
@@ -57,7 +64,39 @@ const routes = [
   {
     path: '/data',
     name: 'Data',
-    component: Data
+    component: Data,
+    children: [
+      {
+        path: '/ActionAnalysis',
+        name: 'ActionAnalysis',
+        component: ActionAnalysis
+      },
+      {
+        path: '/GoodsAnalysis',
+        name: 'GoodsAnalysis',
+        component: GoodsAnalysis
+      },
+      {
+        path: '/MenberAnalysis',
+        name: 'MenberAnalysis',
+        component: MenberAnalysis
+      },
+      {
+        path: '/RAnalysis',
+        name: 'RAnalysis',
+        component: RAnalysis
+      },
+      {
+        path: '/FAnalysis',
+        name: 'FAnalysis',
+        component: FAnalysis
+      },
+      {
+        path: '/MAnalysis',
+        name: 'MAnalysis',
+        component: MAnalysis
+      }
+    ]
   }
 ]
 
