@@ -21,7 +21,7 @@
 
 <script>
 import PageHeader from '../components/PageHeader'
-import LiftMenu from '../components/LiftMenu/DataLift'
+import LiftMenu from '../components/LiftMenu/StrategyLift'
 
 export default {
   name: 'Home',

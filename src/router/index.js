@@ -17,7 +17,12 @@ import MenberAnalysis from '../components/Analysis/MenberAnalysis'
 import RAnalysis from '../components/Analysis/RAnalysis'
 import FAnalysis from '../components/Analysis/FAnalysis'
 import MAnalysis from '../components/Analysis/MAnalysis'
-
+import StrategyList from '../components/Backstage/StrategyList'
+import MessageList from '../components/Backstage/MessageList'
+import information from '../components/Backstage/information'
+import ChartAnalysis from '../components/Strategy/ChartAnalysis'
+import Message from '../components/Strategy/Message'
+import MessageAnalysis from '../components/Strategy/MessageAnalysis'
 
 Vue.use(VueRouter)
 const routes = [
@@ -69,29 +74,19 @@ const routes = [
     component: Strategy,
     children: [
       {
-        path: '/menberList',
-        name: 'menberList',
-        component: MenberList
+        path: '/ChartAnalysis',
+        name: 'ChartAnalysis',
+        component: ChartAnalysis
       },
       {
-        path: '/menberGrade',
-        name: 'menberGrade',
-        component: MenberGrade
+        path: '/Message',
+        name: 'Message',
+        component: Message
       },
       {
-        path: '/menberLabel',
-        name: 'menberLabel',
-        component: MenberLabel
-      },
-      {
-        path: '/menberGroup',
-        name: 'menberGroup',
-        component: MenberGroup
-      },
-      {
-        path: '/menberPortrait',
-        name: 'menberPortrait',
-        component: MenblePortrait
+        path: '/MessageAnalysis',
+        name: 'MessageAnalysis',
+        component: MessageAnalysis
       }
     ]
   },
@@ -138,19 +133,19 @@ const routes = [
     component: Backstage,
     children: [
       {
-        path: '/ActionAnalysis',
-        name: 'ActionAnalysis',
-        component: ActionAnalysis
+        path: '/StrategyList',
+        name: 'StrategyList',
+        component: StrategyList
       },
       {
-        path: '/GoodsAnalysis',
-        name: 'GoodsAnalysis',
-        component: GoodsAnalysis
+        path: '/MessageList',
+        name: 'MessageList',
+        component: MessageList
       },
       {
-        path: '/MenberAnalysis',
-        name: 'MenberAnalysis',
-        component: MenberAnalysis
+        path: '/information',
+        name: 'information',
+        component: information
       },
       {
         path: '/RAnalysis',

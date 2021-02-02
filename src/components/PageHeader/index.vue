@@ -2,13 +2,17 @@
   <div class="page-header">
     <el-row>
     <el-col :span="2"><img src="../../assets/mmm.jpg" width="150px" height="60px"></el-col>
-    <el-col :span="22">
+    <el-col :span="20">
     <el-menu :default-active="$route.path" router  class="el-menu-demo" mode="horizontal" @select="handleSelect" >
      <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
          {{ item.navItem }}
     </el-menu-item>
     </el-menu>
     </el-col>
+    <el-col :span="2">
+      <font size="4" face="Verdana">paragraph</font>
+      <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+  </el-col>
   </el-row>
   </div>
 </template>
@@ -20,8 +24,8 @@ export default {
         {name:'/',navItem:'首页'},
         {name:'/menberList',navItem:'会员中心'},
         {name:'/menberAnalysis',navItem:'数据中心'},
-        {name:'/Strategy',navItem:'商业策略'},
-        {name:'/Backstage',navItem:'个人后台中心'},
+        {name:'/chartAnalysis',navItem:'商业策略'},
+        {name:'/information',navItem:'个人后台中心'},
         ]
       };
     },
