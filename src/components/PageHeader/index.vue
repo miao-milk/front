@@ -19,9 +19,9 @@ export default {
         navList:[
         {name:'/',navItem:'首页'},
         {name:'/menberList',navItem:'会员中心'},
-        {name:'/data',navItem:'数据中心'},
-        {name:'/strategy',navItem:'商业策略'},
-        {name:'/personal',navItem:'个人中心'},
+        {name:'/menberAnalysis',navItem:'数据中心'},
+        {name:'/Strategy',navItem:'商业策略'},
+        {name:'/Backstage',navItem:'个人后台中心'},
         ]
       };
     },

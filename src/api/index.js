@@ -51,6 +51,15 @@ export function getMemberLabel() {
         data: JSON.stringify(ids)
       })
     }
+
+//树状图数据
+ export function getTreeData(ids) {
+  return request({
+    url: '/deleteLabel',
+    method: 'post',
+    data: JSON.stringify(ids)
+  })
+}
   
   
 
