@@ -110,7 +110,7 @@ export default {
       },
        handleClick(row) {
         console.log(row);
-        this.$router.push({name:'menberPortrait',query:{sellerId:row.shopBuyerId}})
+        this.$router.push({name:'menberPortrait',query:{sellerId:row.sellerId}})
       },
       handleSizeChange(val) {
           this.pagesize=val;
@@ -122,6 +122,7 @@ export default {
     mounted() {
       getAllMember().then(data => { 
         this.tableData = data.data;
+        console.log(data.data)
         this.total=data.count;
         })
     }

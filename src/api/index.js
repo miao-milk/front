@@ -32,6 +32,14 @@ export function getMemberLabel() {
   })
 }
 
+  //查询某用户的标签
+  export function getMemberLabelBySellerId(sellerId) {
+    return request({
+      url: '/queryLabel/'+sellerId,
+      method: 'get'
+    })
+  }
+
   //添加标签
   export function addMemberLabel(labelContent) {
     return request({
