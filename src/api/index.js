@@ -61,11 +61,34 @@ export function getMemberLabel() {
     }
 
 //树状图数据
- export function getTreeData(ids) {
+ export function getTreeData() {
   return request({
-    url: '/deleteLabel',
-    method: 'post',
-    data: JSON.stringify(ids)
+    url: '/groupTree',
+    method: 'get'
+  })
+}
+
+//添加分组
+export function addGroup(content,pid) {
+  return request({
+    url: '/addGroup',
+    method: 'get',
+    params: {
+      content:content,
+      pid:pid
+    }
+  })
+}
+
+//编辑分组
+export function editGroup(content,id) {
+  return request({
+    url: '/editGroup',
+    method: 'get',
+    params: {
+      content:content,
+      id:id
+    }
   })
 }
   

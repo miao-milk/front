@@ -110,7 +110,7 @@ export default {
       },
        handleClick(row) {
         console.log(row);
-        this.$router.push({name:'menberPortrait',query:{sellerId:row.sellerId}})
+        this.$router.push({name:'menberPortrait',query:{shopBuyerId:row.shopBuyerId}})
       },
       handleSizeChange(val) {
           this.pagesize=val;

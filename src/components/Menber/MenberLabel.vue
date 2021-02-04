@@ -37,7 +37,7 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="big"
-            >查看用户分组</el-button
+            >查看用户群</el-button
           >
         </template>
       </el-table-column>
@@ -143,7 +143,15 @@ export default {
     },
     handleClick(row) {
       console.log(row);
-      //this.$router.push({name:'menberPortrait',query:{sellerId:row.shopBuyerId}})
+      this.$alert('用户列表', '标题名称', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
     },
     handleSizeChange(val) {
       this.pagesize = val;

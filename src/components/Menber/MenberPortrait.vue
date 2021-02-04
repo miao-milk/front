@@ -65,9 +65,9 @@ export default {
     async chartPortrait(){
      const chart = this.$echarts.init(document.getElementById("main"));
     //用来存储数据
-    var sellerId = this.$route.query.sellerId;
+    var shopBuyerId = this.$route.query.shopBuyerId;
     //调用请求
-    await getMemberLabelBySellerId(sellerId).then((data) => {
+    await getMemberLabelBySellerId(shopBuyerId).then((data) => {
        data.data.forEach(value => {
          this.jsonlist.push({
          name: value.name,
@@ -130,8 +130,8 @@ export default {
   },
   mounted() {
     console.log(this.$route.query);
-    var sellerId = this.$route.query.sellerId;
-    getMemberDetail(sellerId).then((data) => {
+    var shopBuyerId = this.$route.query.shopBuyerId;
+    getMemberDetail(shopBuyerId).then((data) => {
       console.log(data);
       this.people = data.data;
     });
