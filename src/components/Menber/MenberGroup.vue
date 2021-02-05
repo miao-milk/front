@@ -33,11 +33,11 @@
           </el-table-column>
           <el-table-column prop="crowdPortraitType" label="职业" width="100">
           </el-table-column>
-          <el-table-column prop="receiverAddress" width="150" label="地区">
+          <el-table-column prop="receiverAddress" width="150" label="交易次数">
           </el-table-column>
           <el-table-column prop="money" width="100" label="交易金额">
           </el-table-column>
-          <el-table-column prop="a" width="200" label="未购买天数">
+          <el-table-column prop="a" width="200" label="最后交易成功时间">
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">

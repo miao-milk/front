@@ -91,6 +91,17 @@ export function editGroup(content,id) {
     }
   })
 }
+
+//编辑分组
+export function deleteGroup(id) {
+  return request({
+    url: '/deleteGroup',
+    method: 'get',
+    params: {
+      id:id
+    }
+  })
+}
   
   
 

@@ -33,13 +33,16 @@
             round
             @click="() => edit(data)"
           ></el-button>
+          <el-button type="text" size="mini" @click="() => deleteGroup(data)"
+            >删除</el-button
+          >
         </span>
       </span>
     </el-tree>
   </div>
 </template>
 <script>
-import { getTreeData, addGroup,editGroup } from "../../api";
+import { getTreeData, addGroup, editGroup, deleteGroup } from "../../api";
 let id = 1000;
 export default {
   watch: {
@@ -102,24 +105,22 @@ export default {
     },
     //添加二级分组
     append(data) {
-      addGroup("分组名", data.id);
-      const newChild = { id: id++, label: "分组名", children: [] };
-      if (!data.children) {
-        this.$set(data, "children", []);
-      }
-      data.children.push(newChild);
+      addGroup("分组名", data.id).then((res)=>{
+          this.TreeData = [];
+          this.getPageTreeData();
+      });
     },
     //编辑分组名字
     edit(node, data) {
       console.log(node.id);
-      var id=node.id
+      var id = node.id;
       this.$prompt("请输入", "提示", {
         inputValue: node.label,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
       })
         .then(({ value }) => {
-          editGroup(value,id)
+          editGroup(value, id);
           node.label = value;
         })
         .catch(() => {
@@ -128,6 +129,25 @@ export default {
             message: "取消输入",
           });
         });
+    },
+    //删除分组节点
+    deleteGroup(node, data) {
+      console.log(node.id);
+      var id = node.id;
+      this.$confirm("此操作将永久删除过滤站点, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        deleteGroup(id).then((res) => {
+          this.$message({
+            type: "success",
+            message: "删除成功!",
+          });
+          this.TreeData = [];
+          this.getPageTreeData();
+        });
+      });
     },
     //节点属性
     filterNode(value, data) {
