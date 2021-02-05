@@ -63,7 +63,7 @@ export default {
 
   methods: {
     clickEven(a) {
-      console.log(a);
+       this.$emit('func',a.id)
     },
     //获取封装数据
     getPageTreeData() {

@@ -32,6 +32,15 @@ export function getMemberLabel() {
   })
 }
 
+//根据条件查询标签
+export function queryLable(params) {
+  return request({
+    url: '/allLabelByParam',
+    method: 'post',
+    data: JSON.stringify(params)
+  })
+}
+
   //查询某用户的标签
   export function getMemberLabelBySellerId(sellerId) {
     return request({
@@ -102,6 +111,30 @@ export function deleteGroup(id) {
     }
   })
 }
+
+
+//查询分组人群
+export function getGroupMember(id) {
+  return request({
+    url: '/groupMember',
+    method: 'get',
+    params: {
+      id:id
+    }
+  })
+}
+
+//查询分组信息
+export function getGroupDetail(id) {
+  return request({
+    url: '/getGroupDetail',
+    method: 'get',
+    params: {
+      id:id
+    }
+  })
+}
+  
   
   
 

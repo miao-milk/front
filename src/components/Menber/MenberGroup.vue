@@ -1,17 +1,17 @@
 <template>
   <div id="menberl-group">
     <el-row :gutter="40">
-      <el-col :span="6"> <group></group></el-col>
+      <el-col :span="6"> <group @func="getMsgFormSon"></group></el-col>
       <el-col :span="18">
         <el-card shadow="never" style="width: 100%">
           <el-row :gutter="20">
-            <el-col :span="8">分组名称:</el-col>
-            <el-col :span="8">拥有会员：</el-col>
-            <el-col :span="8">分组类型：</el-col>
+            <el-col :span="8">分组名称:{{groupDetail.labelName}}</el-col>
+            <el-col :span="8">拥有会员：{{total}}</el-col>
+            <el-col :span="8">分组类型：{{groupDetail.fatherName}}</el-col>
           </el-row>
           <el-row :gutter="20">
-            <el-col :span="8">创建时间：</el-col>
-            <el-col :span="8">最近更新时间：</el-col>
+            <el-col :span="8">创建时间：{{groupDetail.createTime}}</el-col>
+            <el-col :span="8">最近更新时间：{{groupDetail.updateTime}}</el-col>
           </el-row>
         </el-card>
         <br /><br />
@@ -25,19 +25,27 @@
           "
           style="width: 100%"
         >
-          <el-table-column prop="buyerNick" label="账号昵称" width="150">
+          <el-table-column prop="buyerNick" label="账号昵称" width="100">
           </el-table-column>
-          <el-table-column prop="receiverName" label="姓名" width="150">
+          <el-table-column prop="receiverName" label="姓名" width="100">
           </el-table-column>
-          <el-table-column prop="receiverMobile" label="电话" width="150">
+          <el-table-column prop="receiverMobile" label="电话" width="130">
           </el-table-column>
-          <el-table-column prop="crowdPortraitType" label="职业" width="100">
+          <el-table-column
+            prop="smsMarketingCount"
+            width="130"
+            label="短信营销次数"
+          >
           </el-table-column>
-          <el-table-column prop="receiverAddress" width="150" label="交易次数">
+          <el-table-column prop="buyTotalCount" width="80" label="交易次数">
           </el-table-column>
-          <el-table-column prop="money" width="100" label="交易金额">
+          <el-table-column prop="buyTotalMoney" width="100" label="交易金额">
           </el-table-column>
-          <el-table-column prop="a" width="200" label="最后交易成功时间">
+          <el-table-column
+            prop="lastSendTime"
+            width="200"
+            label="最后交易成功时间"
+          >
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
@@ -64,6 +72,7 @@
 
 <script>
 import Group from "../Group";
+import { getGroupMember,getGroupDetail } from "../../api";
 export default {
   name: "Home",
   components: {
@@ -76,9 +85,11 @@ export default {
       receiverName: "",
       receiverMobile: "",
       tableData: [],
+      groupDetail:{},
       currentPage: 1,
       pagesize: 10,
       total: 0,
+      id: 0,
     };
   },
   methods: {
@@ -94,6 +105,26 @@ export default {
             message: "取消输入",
           });
         });
+    },
+    handleClick(row) {
+      console.log(row);
+      this.$router.push({
+        name: "menberPortrait",
+        query: { shopBuyerId: row.shopBuyerId },
+      });
+    },
+    getMsgFormSon(data) {
+      this.id = data;
+      console.log(this.id);
+      getGroupMember(this.id).then((data) => {
+        this.tableData = data.data;
+        console.log(data.data);
+        this.total = data.count;
+      });
+       getGroupDetail(this.id).then((data) => {
+        console.log(data.data);
+        this.groupDetail=data.data
+      });
     },
     handleSizeChange(val) {
       this.pagesize = val;

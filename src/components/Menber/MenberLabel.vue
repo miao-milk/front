@@ -12,7 +12,7 @@
         </el-input>
       </el-col>
       <el-col :span="3">
-        <el-button icon="el-icon-search" circle @click="query"></el-button>
+        <el-button icon="el-icon-search" circle @click="queryLable"></el-button>
       </el-col>
     </el-row>
     <el-button type="primary" style="margin-top: 20px" @click="addLabel"
@@ -56,7 +56,12 @@
 </template>
 
 <script>
-import { getMemberLabel, addMemberLabel, deleteLabel } from "../../api";
+import {
+  getMemberLabel,
+  addMemberLabel,
+  deleteLabel,
+  queryLable,
+} from "../../api";
 export default {
   data() {
     return {
@@ -72,12 +77,12 @@ export default {
     };
   },
   methods: {
-    query() {
-      this.params = { labelName: this.labelName };
-      //   getallMemberByParamr(this.params).then(data => {
-      //        this.tableData = data.data;
-      //        this.total=data.count;
-      // })
+    queryLable() {
+      this.params={"labelName":this.labelName}
+      queryLable(this.params).then((data) => {
+        this.tableData = data.data;
+        this.total = data.count;
+      });
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
@@ -100,19 +105,18 @@ export default {
             ids: arr.join(),
           };
           console.log(arr);
-          deleteLabel(arr).then(res => {
+          deleteLabel(arr).then((res) => {
             this.$message({
-            type: "success",
-            message: "删除成功!",
-          });
+              type: "success",
+              message: "删除成功!",
+            });
             getMemberLabel().then((data) => {
               this.tableData = data.data;
               this.total = data.count;
             });
-          this.currentpage = 1;
-          this.multipleSelection = [];
+            this.currentpage = 1;
+            this.multipleSelection = [];
           });
-         
         });
       }
     },
@@ -143,15 +147,15 @@ export default {
     },
     handleClick(row) {
       console.log(row);
-      this.$alert('用户列表', '标题名称', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
+      this.$alert("用户列表", "标题名称", {
+        confirmButtonText: "确定",
+        callback: (action) => {
+          this.$message({
+            type: "info",
+            message: `action: ${action}`,
+          });
+        },
+      });
     },
     handleSizeChange(val) {
       this.pagesize = val;
