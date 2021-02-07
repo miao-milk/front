@@ -12,7 +12,7 @@
             <v-chart :options="categoryOptions" />
           </div>
         </template>
-        <el-card shadow="hover" >
+        <el-card shadow="hover">
           <template v-slot:header>
             <div class="menu-wrapper">
               <div class="title-wrapper">
@@ -21,8 +21,8 @@
             </div>
           </template>
           <template>
-            <div class="sales-view-chart-wrapper" >
-              <v-chart :options="chartOption" style="width: 100%"/>
+            <div class="sales-view-chart-wrapper">
+              <v-chart :options="chartOption" style="width: 100%" />
             </div>
           </template>
         </el-card>
@@ -32,12 +32,15 @@
 </template>
 
 <script>
+import { getMemberConsumptionLevel } from "../../api";
 export default {
   data() {
     return {
-      total: 100,
+      total: 0,
       categoryOptions: {},
       chartOption: {},
+      data: {},
+      BarDate:[]
     };
   },
 
@@ -46,8 +49,8 @@ export default {
       const mockData = [
         {
           legendname: "高级消费人群",
-          value: 67,
-          percent: "10.40%",
+          value: this.data.seniorNumber,
+          percent: (this.data.seniorNumber/this.total)*100,
           itemStyle: {
             color: "#8d7fec",
           },
@@ -55,21 +58,21 @@ export default {
         },
         {
           legendname: "中级消费人群",
-          value: 97,
-          percent: "30.30%",
+          value: this.data.intermediateNumber,
+          percent: (this.data.intermediateNumber/this.total)*100,
           itemStyle: {
             color: "#5085f2",
           },
           name: "中消费人群",
         },
         {
-          legendname: "低消费人群",
-          value: 67,
-          percent: "60.40%",
+          legendname: "普通人群",
+          value: this.data.ordinaryNumber,
+          percent: (this.data.ordinaryNumber/this.total)*100,
           itemStyle: {
             color: "#f8726b",
           },
-          name: "低消费人群",
+          name: "普通人群",
         },
       ];
       this.categoryOptions = {
@@ -159,10 +162,10 @@ export default {
         },
       };
     },
-    
-    render() {
-      var dataAxis = ["高级消费人群", "中高消费人群", "中消费人群" ];
-      var data = [220, 182, 191];
+
+    renderBar() {
+      var dataAxis = ["高级消费人群", "中高消费人群", "普通人群"];
+      var data =this.BarDate;
       this.chartOption = {
         title: {
           text: "等级会员销售金额",
@@ -224,76 +227,85 @@ export default {
   },
 
   mounted() {
-    this.renderPieChart();
-    this.render();
+    getMemberConsumptionLevel().then((data) => {
+      
+      this.data = data.data;
+      this.total=data.data.peopleTotal;
+      this.BarDate.push(data.data.seniorAmount)
+      this.BarDate.push(data.data.intermediateAmount)
+      this.BarDate.push(data.data.ordinaryAmount)
+      console.log(this.BarDate);
+      this.renderPieChart();
+      this.renderBar();
+    });
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  .sales-view {
-    .sales-view-chart-wrapper {
-      display: flex;
-      height: 270px;
+.sales-view {
+  .sales-view-chart-wrapper {
+    display: flex;
+    height: 270px;
 
-      .echarts {
-        flex: 0 0 70%;
-        width: 100%;
-        height: 100%;
+    .echarts {
+      flex: 0 0 70%;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sales-view-list {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      .sales-view-title {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #666;
+        font-weight: 500;
       }
 
-      .sales-view-list {
-        flex: 1;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+      .list-item-wrapper {
+        margin-top: 15px;
 
-        .sales-view-title {
-          margin-top: 20px;
+        .list-item {
+          display: flex;
+          align-items: center;
           font-size: 12px;
-          color: #666;
-          font-weight: 500;
-        }
+          height: 20px;
+          padding: 6px 20px 6px 0;
 
-        .list-item-wrapper {
-          margin-top: 15px;
-
-          .list-item {
+          .list-item-no {
             display: flex;
             align-items: center;
-            font-size: 12px;
+            justify-content: center;
+            width: 20px;
             height: 20px;
-            padding: 6px 20px 6px 0;
+            color: #333;
 
-            .list-item-no {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 20px;
-              height: 20px;
-              color: #333;
-
-              &.top-no {
-                background: #000;
-                border-radius: 50%;
-                color: #fff;
-                font-weight: 500;
-              }
+            &.top-no {
+              background: #000;
+              border-radius: 50%;
+              color: #fff;
+              font-weight: 500;
             }
+          }
 
-            .list-item-name {
-              margin-left: 10px;
-              color: #333;
-            }
+          .list-item-name {
+            margin-left: 10px;
+            color: #333;
+          }
 
-            .list-item-money {
-              flex: 1;
-              text-align: right;
-            }
+          .list-item-money {
+            flex: 1;
+            text-align: right;
           }
         }
       }
     }
   }
+}
 </style>
 
