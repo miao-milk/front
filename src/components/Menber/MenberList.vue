@@ -81,6 +81,21 @@
       :total="total"
     >
     </el-pagination>
+
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisibleGroup"
+      width="30%"
+    >
+      <group @func="getMsgFormSon"></group>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleGroup = false">取 消</el-button>
+        <el-button type="primary" @click="addGroupMember"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
+
     <el-dialog
       title="提示"
       :visible.sync="dialogVisible"
@@ -118,14 +133,19 @@
 </template>
 
 <script>
+import Group from "../Group";
 import {
   getAllMember,
   getallMemberByParamr,
   getMemberLabelBySellerId,
   addMemberLabelByshopBuyerId,
   deleteMemberLabelByshopBuyerId,
+  addGroupMember
 } from "../../api";
 export default {
+  components: {
+    Group,
+  },
   data() {
     return {
       buyerNick: "",
@@ -137,10 +157,12 @@ export default {
       pagesize: 10,
       total: 0,
       dialogVisible: false,
+      dialogVisibleGroup: false,
       dynamicTags: [],
       inputVisible: false,
       inputValue: "",
       shopBuyerId: 0,
+      groupId:0,
     };
   },
   methods: {
@@ -158,6 +180,7 @@ export default {
         this.total = data.count;
       });
     },
+    //点击用户画像事件
     handleClick(row) {
       console.log(row);
       //this.$router.push({name:'menberPortrait',query:{shopBuyerId:row.shopBuyerId}})
@@ -176,11 +199,26 @@ export default {
       });
       //this.$router.push({name:'menberPortrait',query:{shopBuyerId:row.shopBuyerId}})
     },
-    handleGroup(row) {
-      console.log(row);
 
-      //this.$router.push({name:'menberPortrait',query:{shopBuyerId:row.shopBuyerId}})
+
+    //点击加入分组事件
+    handleGroup(row) {
+      console.log(row.shopBuyerId);
+      this.shopBuyerId = row.shopBuyerId;
+      this.dialogVisibleGroup = true;
     },
+    //点击分组节点的事件接受子组件的值
+    getMsgFormSon(data) {
+      this.groupId = data;
+      console.log(this.groupId);
+    },
+    addGroupMember(row) {
+      console.log("添加分组会员");
+      this.dialogVisibleGroup = false;
+      addGroupMember(this.groupId,this.shopBuyerId)
+    },
+
+
     handleSizeChange(val) {
       this.pagesize = val;
     },

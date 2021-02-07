@@ -111,6 +111,7 @@ export function addGroup(content, pid) {
   })
 }
 
+
 //编辑分组
 export function editGroup(content, id) {
   return request({
@@ -123,7 +124,7 @@ export function editGroup(content, id) {
   })
 }
 
-//编辑分组
+//删除分组
 export function deleteGroup(id) {
   return request({
     url: '/deleteGroup',
@@ -153,6 +154,18 @@ export function getGroupDetail(id) {
     method: 'get',
     params: {
       id: id
+    }
+  })
+}
+
+//添加分组会员
+export function addGroupMember(groupId, shopBuyerId) {
+  return request({
+    url: '/addGroupMember',
+    method: 'get',
+    params: {
+      groupId: groupId,
+      shopBuyerId: shopBuyerId
     }
   })
 }

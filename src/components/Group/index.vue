@@ -16,6 +16,7 @@
       @node-click="clickEven"
       :filter-node-method="filterNode"
       ref="tree"
+      :highlight-current="true"
       :expand-on-click-node="false"
     >
       <span class="custom-tree-node" slot-scope="{ node, data }">
