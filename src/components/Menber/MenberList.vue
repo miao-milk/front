@@ -137,7 +137,7 @@ export default {
       pagesize: 10,
       total: 0,
       dialogVisible: false,
-      dynamicTags: ["标签一"],
+      dynamicTags: [],
       inputVisible: false,
       inputValue: "",
       shopBuyerId: 0,
@@ -209,11 +209,19 @@ export default {
 
     handleInputConfirm() {
       let inputValue = this.inputValue;
+
       if (inputValue) {
-        this.dynamicTags.push(inputValue);
+        //新增标签内容
+        addMemberLabelByshopBuyerId(this.shopBuyerId, inputValue).then(
+          (data) => {
+            console.log(data);
+            if (data.code === 200) {
+              this.dynamicTags.push(inputValue);
+            }
+          }
+        );
       }
-      //新增标签内容
-      addMemberLabelByshopBuyerId(this.shopBuyerId, inputValue);
+
       this.inputVisible = false;
       this.inputValue = "";
     },
