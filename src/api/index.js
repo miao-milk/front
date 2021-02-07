@@ -181,4 +181,45 @@ export function getMemberConsumptionLevel() {
 
 
 
+//查询累计销售额
+export function getTotalSales() {
+  return request({
+    url: '/totalSales',
+    method: 'get'
+  })
+}
+
+//查询累计订单量
+export function getTotalOrders() {
+  return request({
+    url: '/totalOrders',
+    method: 'get'
+  })
+}
+
+//查询今日新增交易用户数
+export function getTodayUsers() {
+  return request({
+    url: '/todayUsers',
+    method: 'get'
+  })
+}
+
+//查询累计用户数
+export function getTotalUsers() {
+  return request({
+    url: '/totalUsers',
+    method: 'get'
+  })
+}
+
+//查询地图数据
+export function getMapData() {
+  return request({
+    url: '/mapData',
+    method: 'get'
+  })
+}
+
+
 
