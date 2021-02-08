@@ -1,5 +1,5 @@
 <template>
-  <common-card title="累计订单量" :value="orderToday">
+  <common-card title="今日订单量" :value="orderToday">
     <template>
       <v-chart :options="getOptions()" />
     </template>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getTotalSales } from "../../api";
+import { getTotalOrders } from "../../api";
 import CommonCard from "../../components/CommonCard";
 export default {
   components: {
@@ -19,8 +19,8 @@ export default {
   },
   data() {
     return {
-      orderToday: 6000,
-      orderLastDay: 100,
+      orderToday: "",
+      orderLastDay: "",
       data: [
         ["2019-10-10", 200],
         ["2019-10-11", 400],
@@ -79,7 +79,11 @@ export default {
     },
   },
   mounted() {
-    getTotalSales().then(() => {});
+    getTotalOrders().then((res) => {
+      console.log(res);
+      this.orderLastDay=res.data.orderLastDay
+      this.orderToday=res.data.orderToday
+    });
   },
 };
 </script>

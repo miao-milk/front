@@ -1,22 +1,22 @@
 <template>
-  <common-card title="累计销售额" :value="salesToday">
+  <common-card title="今日销售额" :value="salesToday">
     <template>
       <div class="compare-wrapper">
         <div class="compare">
           <span>日同比</span>
-          <span class="emphasis">{{ salesGrowthLastDay }}</span>
+          <span class="emphasis">{{ salesGrowthLastDay }} %</span>
           <div class="increase" />
         </div>
-        <div class="compare">
+        <!-- <div class="compare">
           <span>月同比</span>
           <span class="emphasis">{{ salesGrowthLastMonth }}</span>
           <div class="decrease" />
-        </div>
+        </div> -->
       </div>
     </template>
     <template v-slot:footer>
       <span>昨日销售额 </span>
-      <span class="emphasis">{{ salesLastDay }}</span>
+      <span class="emphasis">￥{{ salesLastDay }}</span>
     </template>
   </common-card>
 </template>
@@ -28,17 +28,21 @@ import CommonCard from "../../components/CommonCard";
 export default {
   data() {
     return {
-      salesLastDay: "￥10,000",
-      salesGrowthLastDay: "6.88%",
-      salesGrowthLastMonth: "10.99%",
-      salesToday: "￥100,000",
+      salesLastDay: "",
+      salesGrowthLastDay: "",
+      salesToday: "",
     };
   },
   components: {
     CommonCard,
   },
   mounted() {
-    getTotalSales().then(() => {});
+    getTotalSales().then((data) => {
+      console.log(data);
+      this.salesLastDay=data.data.salesLastDay
+      this.salesGrowthLastDay=data.data.salesGrowthLastDay
+      this.salesToday="￥"+data.data.salesToday
+    });
   },
 };
 </script>

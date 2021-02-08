@@ -1,5 +1,5 @@
 <template>
-  <common-card title="累计用户数" :value="userToday">
+  <common-card title="当日成交数" :value="userToday">
     <template>
       <v-chart :options="getOptions()" />
     </template>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { getTotalSales } from "../../api";
+import { getTotalUsers } from "../../api";
 import CommonCard from "../../components/CommonCard";
 export default {
   components: {
@@ -118,7 +118,7 @@ export default {
     },
   },
   mounted() {
-    getTotalSales().then(() => {});
+    getTotalUsers().then(() => {});
   },
 };
 </script>

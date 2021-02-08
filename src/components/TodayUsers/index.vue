@@ -1,17 +1,17 @@
 <template>
   <common-card title="今日新增交易用户数" :value="orderUser">
     <template>
-      <v-chart :options="getOptions()" style="width:380px" />
+      <v-chart :options="getOptions()" style="width: 380px" />
     </template>
     <template v-slot:footer>
-      <span>成交率</span>
-      <span class="emphasis">{{ returnRate }}</span>
+      <span>今日购买率</span>
+      <span class="emphasis">{{ returnRate }}%</span>
     </template>
   </common-card>
 </template>
 
 <script>
-import { getTotalSales } from "../../api";
+import { getTodayUsers } from "../../api";
 import CommonCard from "../../components/CommonCard";
 export default {
   components: {
@@ -19,9 +19,10 @@ export default {
   },
   data() {
     return {
-      returnRate: 90,
-      orderUser: 200,
-      orderUserData:[120, 200, 150, 80, 70, 110, 130],
+      returnRate: "",
+      orderUser: "",
+      oldTimeList: [],
+      oldUserList: [],
     };
   },
   methods: {
@@ -31,7 +32,7 @@ export default {
         tooltip: {},
         xAxis: {
           type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: this.oldTimeList,
           show: false,
         },
         yAxis: {
@@ -40,7 +41,7 @@ export default {
         },
         series: [
           {
-            data: this.orderUserData,
+            data: this.oldUserList,
             type: "bar",
             showBackground: true,
             barGap: "10%" /*多个并排柱子设置柱子之间的间距*/,
@@ -60,7 +61,13 @@ export default {
     },
   },
   mounted() {
-    getTotalSales().then(() => {});
+    getTodayUsers().then((res) => {
+      console.log(res);
+      this.oldTimeList = res.data.oldTimeList;
+      this.oldUserList = res.data.oldUserList;
+       this.orderUser = res.data.orderUser;
+        this.returnRate = res.data.returnRate;
+    });
   },
 };
 </script>
