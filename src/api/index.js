@@ -221,5 +221,12 @@ export function getMapData() {
   })
 }
 
-
+//登录
+export function login(params) {
+  return request({
+    url: '/login',
+    method: 'post',
+    data: JSON.stringify(params)
+  })
+}
 

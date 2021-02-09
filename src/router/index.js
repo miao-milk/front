@@ -33,7 +33,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/',
+    path: '/login',
     name: 'Login',
     component: Login
   },
@@ -173,7 +173,26 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
+})
+
+
+// 导航守卫
+// 参数1 : to 目标路由对象
+// 参数2 : from 来源路由对象
+// 参数3 : next() 下一步
+router.beforeEach((to, from, next) => {
+  // 1. 判断是不是登录页面
+  // 是登录页面
+  if(to.path === '/login') {
+    next()
+  } else {
+    // 不是登录页面
+    // 2. 判断 是否登录过
+    let token = localStorage.getItem('token')
+    token ? next() : next('/login')
+  }
 })
 
 export default router
