@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/Login'
 import Menber from '../views/Menber.vue'
 import Data from '../views/Data.vue'
 import Backstage from '../views/Backstage'
@@ -27,9 +28,14 @@ import MessageAnalysis from '../components/Strategy/MessageAnalysis'
 Vue.use(VueRouter)
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/Group',

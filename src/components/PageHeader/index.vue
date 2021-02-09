@@ -21,7 +21,7 @@ export default {
     data() {
       return {
         navList:[
-        {name:'/',navItem:'首页'},
+        {name:'/home',navItem:'首页'},
         {name:'/menberList',navItem:'会员中心'},
         {name:'/menberAnalysis',navItem:'数据中心'},
         {name:'/chartAnalysis',navItem:'商业策略'},
