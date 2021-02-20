@@ -164,7 +164,7 @@ export default {
     },
 
     renderBar() {
-      var dataAxis = ["高级消费人群", "中高消费人群", "普通人群"];
+      var dataAxis = ["高级消费会员", "中级消费会员", "普通会员"];
       var data =this.BarDate;
       this.chartOption = {
         title: {

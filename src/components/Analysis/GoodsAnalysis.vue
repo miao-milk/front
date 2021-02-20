@@ -15,14 +15,14 @@ export default {
       var option;
       option = {
         title: {
-          text: "多雷达图",
+          text: "商品销售特征雷达图",
         },
         tooltip: {
           trigger: "axis",
         },
         legend: {
           left: "center",
-          data: ["某软件", "某主食手机", "某水果手机", "降水量", "蒸发量"],
+          data: ["会员喜爱", "商品1", "商品2", "用户购买力", "用户浏览量"],
         },
         radar: [
           {
@@ -68,7 +68,7 @@ export default {
             data: [
               {
                 value: [60, 73, 85, 40],
-                name: "某软件",
+                name: "会员喜爱",
               },
             ],
           },
@@ -79,11 +79,11 @@ export default {
             data: [
               {
                 value: [85, 90, 90, 95, 95],
-                name: "某主食手机",
+                name: "商品1",
               },
               {
                 value: [95, 80, 95, 90, 93],
-                name: "某水果手机",
+                name: "商品2",
               },
             ],
           },
@@ -93,7 +93,7 @@ export default {
             areaStyle: {},
             data: [
               {
-                name: "降水量",
+                name: "用户购买力",
                 value: [
                   2.6,
                   5.9,
@@ -110,7 +110,7 @@ export default {
                 ],
               },
               {
-                name: "蒸发量",
+                name: "用户浏览量",
                 value: [
                   2.0,
                   4.9,
@@ -138,13 +138,13 @@ export default {
       var option;
       option = {
         title: {
-          text: "折线图堆叠",
+          text: "商品销售额",
         },
         tooltip: {
           trigger: "axis",
         },
         legend: {
-          data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"],
+          data: ["商品1", "商品2", "商品3", "商品4"],
         },
         grid: {
           left: "3%",
@@ -167,34 +167,28 @@ export default {
         },
         series: [
           {
-            name: "邮件营销",
+            name: "商品1",
             type: "line",
             stack: "总量",
             data: [120, 132, 101, 134, 90, 230, 210],
           },
           {
-            name: "联盟广告",
+            name: "商品2",
             type: "line",
             stack: "总量",
             data: [220, 182, 191, 234, 290, 330, 310],
           },
           {
-            name: "视频广告",
+            name: "商品3",
             type: "line",
             stack: "总量",
             data: [150, 232, 201, 154, 190, 330, 410],
           },
           {
-            name: "直接访问",
+            name: "商品4",
             type: "line",
             stack: "总量",
             data: [320, 332, 301, 334, 390, 330, 320],
-          },
-          {
-            name: "搜索引擎",
-            type: "line",
-            stack: "总量",
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
           },
         ],
       };

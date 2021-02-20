@@ -19,10 +19,10 @@ export default {
         activeIndex2: '1',
         navList:[
         {name:'/menberAnalysis',navItem:'全链路用户分析'},
-        {name:'/actionAnalysis',navItem:'用户行为分析'},
+        // {name:'/actionAnalysis',navItem:'用户行为分析'},
         {name:'/goodsAnalysis',navItem:'商品分析'},
-        {name:'/RAnalysis',navItem:'活跃度分析'},
-        {name:'/FAnalysis',navItem:'忠诚度分析'},
+        // {name:'/RAnalysis',navItem:'活跃度分析'},
+        // {name:'/FAnalysis',navItem:'忠诚度分析'},
         {name:'/MAnalysis',navItem:'价值分析'}
         ]
       };

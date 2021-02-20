@@ -15,7 +15,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12" class="code-box">
-          <img :src="ruleForm.codeimg" alt="" class="codeimg" @click="getcode()">
+          <img :src="ruleForm.codeimg" alt="" class="cod。eimg" @click="getcode()">
         </el-col>
       </el-row> -->
       <el-checkbox class="remember" v-model="rememberpwd">记住密码</el-checkbox>
