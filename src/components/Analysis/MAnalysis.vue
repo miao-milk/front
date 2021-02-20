@@ -3,6 +3,7 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card class="box-card">
+           <span>会员近7天购买金额</span>
           <div id="chartBar" style="width: 100%; height: 500px"></div>
         </el-card>
       </el-col>
@@ -57,8 +58,7 @@ export default {
       var option;
       option = {
         title: {
-          text: "漏斗图",
-          subtext: "纯属虚构",
+          text: "消费用户排名",
         },
         tooltip: {
           trigger: "item",
@@ -72,16 +72,16 @@ export default {
           },
         },
         legend: {
-          data: ["展现", "点击", "访问", "咨询", "订单"],
+          data: ["第一名", "第二名", "第三名", "第四名", "第五名"],
         },
         series: [
           {
-            name: "预期",
+            name: "成交金额",
             type: "funnel",
             left: "10%",
             width: "80%",
             label: {
-              formatter: "{b}预期",
+              formatter: "{b}",
             },
             labelLine: {
               show: false,
@@ -92,19 +92,19 @@ export default {
             emphasis: {
               label: {
                 position: "inside",
-                formatter: "{b}预期: {c}%",
+                formatter: "{b}成交金额: {c}%",
               },
             },
             data: [
-              { value: 60, name: "访问" },
-              { value: 40, name: "咨询" },
-              { value: 20, name: "订单" },
-              { value: 80, name: "点击" },
-              { value: 100, name: "展现" },
+              { value: 80, name: "第一名" },
+              { value: 70, name: "第二名" },
+              { value: 60, name: "第三名" },
+              { value: 50, name: "第四名" },
+              { value: 40, name: "第五名" },
             ],
           },
           {
-            name: "实际",
+            name: "成交金额",
             type: "funnel",
             left: "10%",
             width: "80%",
@@ -122,15 +122,15 @@ export default {
             emphasis: {
               label: {
                 position: "inside",
-                formatter: "{b}实际: {c}%",
+                formatter: "{b}成交金额: {c}%",
               },
             },
             data: [
-              { value: 30, name: "访问" },
-              { value: 10, name: "咨询" },
-              { value: 5, name: "订单" },
-              { value: 50, name: "点击" },
-              { value: 80, name: "展现" },
+              { value: 80, name: "第一名" },
+              { value: 70, name: "第二名" },
+              { value: 60, name: "第三名" },
+              { value: 50, name: "第四名" },
+              { value: 40, name: "第五名" },
             ],
             // Ensure outer shape will not be over inner shape when hover.
             z: 100,
