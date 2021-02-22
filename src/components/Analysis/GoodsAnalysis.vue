@@ -6,13 +6,58 @@
 </template>
 
 <script>
+import { getProductSalesCharacteristics } from "../../api";
 export default {
   name: "app",
+  data() {
+    return {
+      legendTitle: ["会员喜爱特征"],
+      indicator1:[],
+      indicator2:[],
+      favoriteFeatureDataList:{},
+      seriesDataList:[]
+    };
+  },
   methods: {
-    charTradar() {
+  async  charTradar() {
       var chartDom = document.getElementById("charTradar");
       var myChart = this.$echarts.init(chartDom);
       var option;
+     await getProductSalesCharacteristics().then((data) => {
+        console.log(data);
+        data.data.legendTitle.forEach((value) => {
+          this.legendTitle.push(value);
+        });
+        data.data.favoriteFeature.forEach((value) => {
+           this.indicator1.push({
+             text:value,
+             max:20
+           });
+        });  
+         data.data.indicators.forEach((value) => {
+           this.indicator2.push({
+             text:value,
+             max:20
+           });
+        }); 
+        
+        this.favoriteFeatureDataList=data.data.favoriteFeatureDataList
+        console.log(data.data.favoriteFeatureDataList["iPhone"]);
+         data.data.legendTitle.forEach((value) => {
+           console.log(value);
+            this.seriesDataList.push({
+             value:value,
+             name:data.data.favoriteFeatureDataList[value]
+           });
+        }); 
+        // this.seriesDataList=data.data.seriesDataList
+      });
+     // console.log( this.legendTitle);
+     // console.log(this.indicator1);
+      //遍历标题封装数据
+      console.log("==========");
+    
+      console.log(this.seriesDataList);
       option = {
         title: {
           text: "商品销售特征雷达图",
@@ -22,27 +67,16 @@ export default {
         },
         legend: {
           left: "center",
-          data: ["会员喜爱特征", "商品1", "商品2"],
+          data: this.legendTitle,
         },
         radar: [
           {
-            indicator: [
-              { text: "品牌", max: 100 },
-              { text: "内容", max: 100 },
-              { text: "可用性", max: 100 },
-              { text: "功能", max: 100 },
-            ],
+            indicator: this.indicator1,
             center: ["25%", "40%"],
             radius: 80,
           },
           {
-            indicator: [
-              { text: "外观", max: 100 },
-              { text: "拍照", max: 100 },
-              { text: "系统", max: 100 },
-              { text: "性能", max: 100 },
-              { text: "屏幕", max: 100 },
-            ],
+            indicator:this.indicator2,
             center: ["75%", "40%"],
             radius: 80,
           },
@@ -56,8 +90,8 @@ export default {
             areaStyle: {},
             data: [
               {
-                value: [60, 73, 85, 40],
-                name: "会员喜爱特征",
+                value:this.favoriteFeatureDataList.茅台,
+                name: this.legendTitle[0],
               },
             ],
           },
@@ -65,16 +99,7 @@ export default {
             type: "radar",
             radarIndex: 1,
             areaStyle: {},
-            data: [
-              {
-                value: [85, 90, 90, 95, 95],
-                name: "商品1",
-              },
-              {
-                value: [95, 80, 95, 90, 93],
-                name: "商品2",
-              },
-            ],
+            data:  this.seriesDataList
           },
         ],
       };
@@ -145,7 +170,8 @@ export default {
   },
   mounted() {
     this.charTradar();
-    this.chartPie();
+
+    //this.chartPie();
   },
 };
 </script>

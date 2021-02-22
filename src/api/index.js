@@ -246,6 +246,14 @@ export function getNewAndOldMembers() {
   })
 }
 
+//获取商品销售特征雷达数据  
+export function getProductSalesCharacteristics() {
+  return request({
+    url: '/getProductSalesCharacteristics',
+    method: 'get'
+  })
+}
+
 //获取图表解析信息
 export function getChartAnalysisResult(analysisType) {
   return request({
