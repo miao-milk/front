@@ -221,6 +221,40 @@ export function getMapData() {
   })
 }
 
+//获取会员数量走势数据
+export function getNumberOfMembers() {
+  return request({
+    url: '/getNumberOfMembers',
+    method: 'get'
+  })
+}
+
+//获取等级会员变化图数据  
+export function getLevelMembershipChanges() {
+  return request({
+    url: '/getLevelMembershipChanges',
+    method: 'get'
+  })
+}
+
+
+//获取新老会员对比图数据  
+export function getNewAndOldMembers() {
+  return request({
+    url: '/getNewAndOldMembers',
+    method: 'get'
+  })
+}
+
+//获取图表解析信息
+export function getChartAnalysisResult(analysisType) {
+  return request({
+    url: '/getChartAnalysisResult/' + analysisType,
+    method: 'get'
+  })
+}
+
+
 //登录
 export function login(params) {
   return request({

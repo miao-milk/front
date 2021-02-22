@@ -8,7 +8,7 @@
           type="primary"
           round
           style="margin-left: 230px"
-          @click="dialogVisibleLine = true"
+          @click="lineResult(1)"
           >查看图解</el-button
         >
       </el-col>
@@ -19,7 +19,7 @@
           type="primary"
           round
           style="margin-left: 230px"
-          @click="dialogVisibleBar = true"
+          @click="barResult(2)"
           >查看图解</el-button
         >
       </el-col>
@@ -44,12 +44,12 @@
       type="primary"
       round
       style="margin-left: 600px"
-      @click="dialogVisibleTree = true"
+      @click="TreeResult(3)"
       >查看图解</el-button
     >
 
     <el-dialog title="提示" :visible.sync="dialogVisibleLine" width="30%">
-      <span>这是会员数量走势图解析</span>
+      <span>{{ result }}</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisibleLine = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisibleLine = false"
@@ -59,7 +59,7 @@
     </el-dialog>
 
     <el-dialog title="提示" :visible.sync="dialogVisibleBar" width="30%">
-      <span>这是等级会员变化图解析</span>
+      <span>{{ result }}</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisibleBar = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisibleBar = false"
@@ -69,7 +69,7 @@
     </el-dialog>
 
     <el-dialog title="提示" :visible.sync="dialogVisibleTree" width="30%">
-      <span>这是新老会员对比图解析</span>
+      <span>{{ result }}</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisibleTree = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisibleTree = false"
@@ -83,11 +83,17 @@
 <script>
 import OrganizationType from "./organization-type";
 import OrganizationTypes from "./organization-types";
+import {
+  getNumberOfMembers,
+  getLevelMembershipChanges,
+  getChartAnalysisResult,
+  getNewAndOldMembers,
+} from "../../api";
 export default {
   name: "app",
   components: {
-    OrganizationType,
-    OrganizationTypes,
+    // OrganizationType,
+    // OrganizationTypes,
   },
   data() {
     return {
@@ -166,6 +172,13 @@ export default {
         startTime: "",
         endTime: "",
       },
+      LineSeriesData: [],
+      LineXaxisData: [],
+      result: "",
+      xAxisData: [],
+      data1: [],
+      data2: [],
+      data3: [],
     };
   },
   methods: {
@@ -176,38 +189,45 @@ export default {
       option = {
         xAxis: {
           type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: this.LineXaxisData,
         },
         yAxis: {
           type: "value",
         },
         series: [
           {
-            data: [150, 230, 224, 218, 135, 147, 260],
+            data: this.LineSeriesData,
             type: "line",
           },
         ],
       };
       chart.setOption(option);
     },
+    lineResult(type) {
+      this.dialogVisibleLine = true;
+      getChartAnalysisResult(type).then((data) => {
+        console.log(data);
+        this.result = data.data.result;
+      });
+    },
+    barResult(type) {
+      this.dialogVisibleBar = true;
+      getChartAnalysisResult(type).then((data) => {
+        console.log(data);
+        this.result = data.data.result;
+      });
+    },
+    TreeResult(type) {
+      this.dialogVisibleTree = true;
+      getChartAnalysisResult(type).then((data) => {
+        console.log(data);
+        this.result = data.data.result;
+      });
+    },
     chartBar() {
       var chartDom = document.getElementById("chartBar");
       const chart = this.$echarts.init(chartDom);
       var option;
-
-      var xAxisData = [];
-      var data1 = [];
-      var data2 = [];
-      var data3 = [];
-      var data4 = [];
-
-      for (var i = 0; i < 10; i++) {
-        xAxisData.push("Class" + i);
-        data1.push((Math.random() * 2).toFixed(2));
-        data2.push((Math.random() * 5).toFixed(2));
-        data3.push((Math.random() + 0.3).toFixed(2));
-        data4.push(-Math.random().toFixed(2));
-      }
 
       var emphasisStyle = {
         itemStyle: {
@@ -235,7 +255,7 @@ export default {
         },
         tooltip: {},
         xAxis: {
-          data: xAxisData,
+          data: this.xAxisData,
           name: "X Axis",
           axisLine: { onZero: true },
           splitLine: { show: false },
@@ -251,21 +271,21 @@ export default {
             type: "bar",
             stack: "one",
             emphasis: emphasisStyle,
-            data: data1,
+            data: this.data1,
           },
           {
             name: "中级会员",
             type: "bar",
             stack: "one",
             emphasis: emphasisStyle,
-            data: data2,
+            data: this.data2,
           },
           {
             name: "高级会员",
             type: "bar",
             stack: "two",
             emphasis: emphasisStyle,
-            data: data4,
+            data: this.data3,
           },
         ],
       };
@@ -322,9 +342,62 @@ export default {
     },
   },
   mounted() {
-    this.chartline();
-    this.chartBar();
-    //this.chartTree();
+    getNumberOfMembers().then((data) => {
+      this.LineSeriesData = data.data.seriesData.data1;
+      this.LineXaxisData = data.data.xaxisData;
+      this.chartline();
+    });
+
+    getLevelMembershipChanges().then((data) => {
+      //console.log(data);
+      this.xAxisData = data.data.xaxisData;
+      this.data1 = data.data.seriesData.intermediateMember;
+      this.data2 = data.data.seriesData.ordinaryMember;
+      this.data3 = data.data.seriesData.seniorMember;
+      this.chartBar();
+    });
+
+    getNewAndOldMembers().then((res) => {
+      console.log(res);
+      let self = this;
+      if (res.message == "success") {
+        this.pictLoading = false;
+        this.btnLoading = false;
+        this.sock_showMask = false;
+        //this.$store.commit("setHistory", true);
+        for (let item of res.data) {
+          if (item.name === "总成交客户") {
+            self.queryListData.currentData = item;
+          } else if (item.name === "新客户") {
+            self.queryListData.children[0].currentData = item;
+          } else if (item.name === "老客户") {
+            self.queryListData.children[1].currentData = item;
+          } else if (item.name === "粉丝客户（5＜交易次数）") {
+            self.queryListData.children[1].children[3].currentData = item;
+          } else if (item.name === "忠实客户（2＜交易次数 ≤ 5）") {
+            self.queryListData.children[1].children[2].currentData = item;
+          } else if (item.name === "复购客户（交易次数=2）") {
+            self.queryListData.children[1].children[1].currentData = item;
+          } else if (
+            item.name === "潜在客户（交易次数=1）'" ||
+            item.name === "潜在客户（交易次数=1）"
+          ) {
+            item.name = "潜在客户（交易次数=1）";
+            self.queryListData.children[1].children[0].currentData = item;
+          } else if (item.name === "成交多次客户") {
+            self.queryListData.children[0].children[1].currentData = item;
+          } else if (item.name === "成交1次客户") {
+            self.queryListData.children[0].children[0].currentData = item;
+          }
+        }
+      } else if (res.code === 200 && res.message === "请求分析中，请稍后重试") {
+        this.$message.warning("数据量较大，正在计算中...");
+        this.pictLoading = false;
+        this.sock_showMask = true;
+      } else {
+        alert(res.message);
+      }
+    });
   },
 };
 </script>
