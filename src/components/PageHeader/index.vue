@@ -24,7 +24,7 @@ export default {
         {name:'/home',navItem:'首页'},
         {name:'/menberList',navItem:'会员中心'},
         {name:'/menberAnalysis',navItem:'数据中心'},
-        {name:'/chartAnalysis',navItem:'商业策略'},
+        {name:'/Message',navItem:'营销中心'},
         {name:'/information',navItem:'个人后台中心'},
         ]
       };

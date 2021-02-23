@@ -262,6 +262,23 @@ export function getCommoditySales() {
   })
 }
 
+
+//获取购买金额数据  
+export function getPurchaseAmount() {
+  return request({
+    url: '/getPurchaseAmount',
+    method: 'get'
+  })
+}
+
+//获取消费排名  
+export function getConsumptionRanking() {
+  return request({
+    url: '/getConsumptionRanking',
+    method: 'get'
+  })
+}
+
 //获取图表解析信息
 export function getChartAnalysisResult(analysisType) {
   return request({

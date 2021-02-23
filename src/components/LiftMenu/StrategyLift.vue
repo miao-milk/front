@@ -18,9 +18,7 @@ export default {
         activeIndex: '1',
         activeIndex2: '1',
         navList:[
-        {name:'/ChartAnalysis',navItem:'图表数据分析'},
-        {name:'/Message',navItem:'短信营销'},
-        {name:'/MessageAnalysis',navItem:'营销效果'}
+        {name:'/Message',navItem:'短信营销'}
         ]
       };
     },

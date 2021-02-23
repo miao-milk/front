@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    短信营销
+    <send-message></send-message>
   </div>
 </template>
 
 <script>
+import SendMessage from '../sendMessage/send-message.vue';
 export default {
-  name: 'app'
+  name: 'app',
+    components: {
+    SendMessage
+  },
 }
 </script>
 

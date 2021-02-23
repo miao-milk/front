@@ -23,6 +23,7 @@ import MessageList from '../components/Backstage/MessageList'
 import information from '../components/Backstage/information'
 import ChartAnalysis from '../components/Strategy/ChartAnalysis'
 import Message from '../components/Strategy/Message'
+import sendMessage from '../components/sendMessage/send-message'
 import MessageAnalysis from '../components/Strategy/MessageAnalysis'
 
 Vue.use(VueRouter)
@@ -31,6 +32,11 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/sendMessage',
+    name: 'sendMessage',
+    component: sendMessage
   },
   {
     path: '/login',

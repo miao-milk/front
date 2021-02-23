@@ -27,7 +27,7 @@ export default {
       var dataList = [];
 
       await getMapData().then((data) => {
-        console.log(data);
+  
         data.data.forEach((value) => {
           dataList.push({
             name: value.areaName,
@@ -36,8 +36,6 @@ export default {
         });
       });
 
-      console.log(dataList);
-      console.log("========================");
 
       var geoCoordMap = {
         海门: [121.15, 31.89],
@@ -373,7 +371,7 @@ export default {
         geoCoordMap
       );
       var sortData = sortData1.slice(0, 10);
-      console.log(mapData);
+
       this.chartSeries = [
         {
           name: "销售额",
@@ -433,7 +431,6 @@ export default {
       ];
     },
     convertData(data, geo) {
-      console.log("进入convertData方法");
       const res = [];
       data.forEach((item) => {
         const { name, value } = item;
@@ -448,7 +445,7 @@ export default {
   },
 
   mounted() {
-    //
+
     this.charMap();
   },
 };
