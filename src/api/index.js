@@ -254,6 +254,14 @@ export function getProductSalesCharacteristics() {
   })
 }
 
+//获取商品销售额数据  
+export function getCommoditySales() {
+  return request({
+    url: '/getCommoditySales',
+    method: 'get'
+  })
+}
+
 //获取图表解析信息
 export function getChartAnalysisResult(analysisType) {
   return request({

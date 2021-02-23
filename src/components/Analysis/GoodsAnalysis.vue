@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { getProductSalesCharacteristics } from "../../api";
+import { getProductSalesCharacteristics,getCommoditySales } from "../../api";
 export default {
   name: "app",
   data() {
@@ -15,7 +15,11 @@ export default {
       indicator1:[],
       indicator2:[],
       favoriteFeatureDataList:{},
-      seriesDataList:[]
+      seriesDataList:[],
+      PieTitle:["miao"],
+      PieXAxis:[],
+      Pieseries:[]
+
     };
   },
   methods: {
@@ -24,7 +28,7 @@ export default {
       var myChart = this.$echarts.init(chartDom);
       var option;
      await getProductSalesCharacteristics().then((data) => {
-        console.log(data);
+        //console.log(data);
         data.data.legendTitle.forEach((value) => {
           this.legendTitle.push(value);
         });
@@ -42,12 +46,12 @@ export default {
         }); 
         
         this.favoriteFeatureDataList=data.data.favoriteFeatureDataList
-        console.log(data.data.favoriteFeatureDataList["iPhone"]);
+        //console.log(data.data.favoriteFeatureDataList["iPhone"]);
          data.data.legendTitle.forEach((value) => {
-           console.log(value);
+           //console.log(value);
             this.seriesDataList.push({
-             value:value,
-             name:data.data.favoriteFeatureDataList[value]
+             value:data.data.favoriteFeatureDataList[value],
+             name:value
            });
         }); 
         // this.seriesDataList=data.data.seriesDataList
@@ -55,9 +59,6 @@ export default {
      // console.log( this.legendTitle);
      // console.log(this.indicator1);
       //遍历标题封装数据
-      console.log("==========");
-    
-      console.log(this.seriesDataList);
       option = {
         title: {
           text: "商品销售特征雷达图",
@@ -99,16 +100,34 @@ export default {
             type: "radar",
             radarIndex: 1,
             areaStyle: {},
-            data:  this.seriesDataList
+            data:this.seriesDataList
           },
         ],
       };
       option && myChart.setOption(option);
     },
-    chartPie() {
+   async chartPie() {
       var chartDom = document.getElementById("chartPie");
       var myChart = this.$echarts.init(chartDom);
       var option;
+     await getCommoditySales().then((data)=>{
+        console.log(data.data);
+        let keys = Object.keys(data.data.seriesData);
+        this.PieTitle=keys
+        this.PieXAxis=data.data.xaxisData
+        console.log(this.PieTitle);
+         this.PieTitle.forEach((value) => {
+          //this.legendTitle.push(value);
+          // console.log(value);
+          this.Pieseries.push({
+            name: value,
+            type: "line",
+            stack: "总量",
+            data: data.data.seriesData[value]
+          })
+          console.log(this.Pieseries);
+        });
+      })
       option = {
         title: {
           text: "商品销售额",
@@ -117,7 +136,7 @@ export default {
           trigger: "axis",
         },
         legend: {
-          data: ["商品1", "商品2", "商品3", "商品4"],
+          data: this.PieTitle,
         },
         grid: {
           left: "3%",
@@ -133,45 +152,19 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+          data: this.PieXAxis,
         },
         yAxis: {
           type: "value",
         },
-        series: [
-          {
-            name: "商品1",
-            type: "line",
-            stack: "总量",
-            data: [120, 132, 101, 134, 90, 230, 210],
-          },
-          {
-            name: "商品2",
-            type: "line",
-            stack: "总量",
-            data: [220, 182, 191, 234, 290, 330, 310],
-          },
-          {
-            name: "商品3",
-            type: "line",
-            stack: "总量",
-            data: [150, 232, 201, 154, 190, 330, 410],
-          },
-          {
-            name: "商品4",
-            type: "line",
-            stack: "总量",
-            data: [320, 332, 301, 334, 390, 330, 320],
-          },
-        ],
+        series: this.Pieseries
       };
       option && myChart.setOption(option);
     },
   },
   mounted() {
     this.charTradar();
-
-    //this.chartPie();
+  this.chartPie();
   },
 };
 </script>
