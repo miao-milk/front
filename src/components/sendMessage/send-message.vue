@@ -12,12 +12,12 @@
               type="textarea"
               :rows="2"
               placeholder="请输入手机号码"
-              v-model="textarea"
+              v-model="mobile"
               style="width: 700px; padding-top: 20px; padding-left: 25px;"
             >
             </el-input>
             </div>
-          
+
             <div  style="padding-top: 20px;">编辑短信
               <el-input type="textarea" placeholder="请输入短信内容" :rows="6" v-model="message" autocomplete="off" style="width: 700px; padding-top: 20px; padding-left: 25px;"></el-input>
             </div>
@@ -25,18 +25,13 @@
             <div  style="padding-top: 50px;padding-left: 60px;">
               <el-button type="primary" round  @click="sendMessage">提交短信</el-button>
             </div>
-            
+
           </div>
         </el-col>
         <el-col :span="9">
           <div
             class="grid-content bg-purple-dark"
-            style="
-              background: url('/img/mobile.9f74254f.png');
-              height: 503.61px;
-              width: 255.75px;
-              
-            "
+            :style="divStyle"
           >
             <div
               style="
@@ -58,10 +53,18 @@
   </div>
 </template>
 <script>
+import {sendMessage} from '../../api'
 export default {
   data() {
     return {
-      message:""
+      message:"",
+      mobile:"",
+      params:{},
+      divStyle: {
+        height: "503.61px",
+        width: "255.75px",
+        background: "url(" + require("../../assets/mobile.png") + ")",
+      },
     };
   },
   methods: {
@@ -71,15 +74,26 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '发送成功!'
-          });
+          this.params={"mobile":this.mobile,"content":this.message}
+          sendMessage(this.params).then((data)=>{
+            if (data.message=="发送信息成功"){
+              this.$message({
+                type: 'success',
+                message: '发送成功!'
+              });
+            }else {
+              this.$message({
+                type: 'info',
+                message: '发送成功'
+              });
+            }
+          })
+
         }).catch(() => {
           this.$message({
             type: 'info',
             message: '已取消'
-          });          
+          });
         });
       }
   },

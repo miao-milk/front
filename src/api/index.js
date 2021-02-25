@@ -16,7 +16,7 @@ export function getallMemberByParamr(params) {
   })
 }
 
-//根据id查询用户详情 
+//根据id查询用户详情
 export function getMemberDetail(sellerId) {
   return request({
     url: '/getMemberDetail/' + sellerId,
@@ -229,7 +229,7 @@ export function getNumberOfMembers() {
   })
 }
 
-//获取等级会员变化图数据  
+//获取等级会员变化图数据
 export function getLevelMembershipChanges() {
   return request({
     url: '/getLevelMembershipChanges',
@@ -238,7 +238,7 @@ export function getLevelMembershipChanges() {
 }
 
 
-//获取新老会员对比图数据  
+//获取新老会员对比图数据
 export function getNewAndOldMembers() {
   return request({
     url: '/getNewAndOldMembers',
@@ -246,7 +246,7 @@ export function getNewAndOldMembers() {
   })
 }
 
-//获取商品销售特征雷达数据  
+//获取商品销售特征雷达数据
 export function getProductSalesCharacteristics() {
   return request({
     url: '/getProductSalesCharacteristics',
@@ -254,7 +254,7 @@ export function getProductSalesCharacteristics() {
   })
 }
 
-//获取商品销售额数据  
+//获取商品销售额数据
 export function getCommoditySales() {
   return request({
     url: '/getCommoditySales',
@@ -263,7 +263,7 @@ export function getCommoditySales() {
 }
 
 
-//获取购买金额数据  
+//获取购买金额数据
 export function getPurchaseAmount() {
   return request({
     url: '/getPurchaseAmount',
@@ -271,7 +271,7 @@ export function getPurchaseAmount() {
   })
 }
 
-//获取消费排名  
+//获取消费排名
 export function getConsumptionRanking() {
   return request({
     url: '/getConsumptionRanking',
@@ -284,6 +284,32 @@ export function getChartAnalysisResult(analysisType) {
   return request({
     url: '/getChartAnalysisResult/' + analysisType,
     method: 'get'
+  })
+}
+
+//查询所有信息
+export function getAllMessage() {
+  return request({
+    url: '/getAllMessage',
+    method: 'get'
+  })
+}
+
+//根据条件查询会员
+export function getAllMessageByParamr(params) {
+  return request({
+    url: '/allMessageByParam',
+    method: 'post',
+    data: JSON.stringify(params)
+  })
+}
+
+//发送信息
+export function sendMessage(params) {
+  return request({
+    url: '/sendMessage',
+    method: 'post',
+    data: JSON.stringify(params)
   })
 }
 
