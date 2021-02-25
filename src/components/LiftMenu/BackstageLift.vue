@@ -29,7 +29,7 @@ export default {
       activeIndex2: "1",
       navList: [
         { name: "/information", navItem: "个人信息" },
-        { name: "/StrategyList", navItem: "策略记录" },
+        { name: "/StrategyList", navItem: "充值管理" },
         { name: "/MessageList", navItem: "短信营销发送记录" },
       ],
     };

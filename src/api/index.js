@@ -313,6 +313,25 @@ export function sendMessage(params) {
   })
 }
 
+//充值
+export function pay(params) {
+  return request({
+    url: '/pay',
+    method: 'get',
+    params: {
+      params: params
+    }
+  })
+}
+
+//回调地址
+export function returnUrl(params) {
+  return request({
+    url: '/returnUrl?'+params,
+    method: 'get'
+  })
+}
+
 
 //登录
 export function login(params) {

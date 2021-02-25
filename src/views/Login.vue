@@ -56,11 +56,8 @@ export default {
       message: '账号密码不为空即可',
       type: 'success'
     })
-    // // 获取图形验证码
-    // this.getcode()
-    // 获取存在本地的用户名密码
-    //this.getuserpwd()
-    
+    this.getuserpwd()
+
   },
   // 里面的函数只有调用才会执行
   methods: {
@@ -81,6 +78,7 @@ export default {
           login(this.ruleForm).then(res => {
               console.log(res);
             if (res.code=="200") {
+              console.log("保存cookie")
               if (this.rememberpwd) {
                 //保存帐号到cookie，有效期7天
                 setCookie('user', this.ruleForm.username, 7)
@@ -97,7 +95,7 @@ export default {
                 localStorage.setItem('token', res.data.token)
                 // 缓存用户个人信息
                 localStorage.setItem('userdata', JSON.stringify(res.data))
-            
+
                 this.$router.push({ path: '/home' })
               }, 3000)
             } else {
