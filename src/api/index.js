@@ -333,6 +333,25 @@ export function returnUrl(params) {
 }
 
 
+//保存用户信息
+export function saveUserInfo(params) {
+  return request({
+    url: '/saveUserInfo',
+    method: 'post',
+    data: JSON.stringify(params)
+  })
+}
+
+
+//查用户详情信息
+export function getUserInfo() {
+  return request({
+    url: '/getUserInfo',
+    method: 'get'
+  })
+}
+
+
 //登录
 export function login(params) {
   return request({
