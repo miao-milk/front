@@ -352,6 +352,16 @@ export function getUserInfo() {
 }
 
 
+//退出
+export function logout() {
+  return request({
+    url: '/logout',
+    method: 'get',
+  })
+}
+
+
+
 //登录
 export function login(params) {
   return request({

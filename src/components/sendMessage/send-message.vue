@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import {sendMessage} from '../../api'
+import {returnUrl, sendMessage} from '../../api'
 export default {
   data() {
     return {
@@ -97,6 +97,16 @@ export default {
         });
       }
   },
+  mounted() {
+    let url=location.href
+    let num=url.indexOf("=");
+    let str=url.substr(num+1);
+    if (num!=-1){
+      this.mobile=str
+    }
+    console.log(num)
+    console.log(str)
+  }
 };
 </script>
 <style lang="scss" scoped>

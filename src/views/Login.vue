@@ -91,13 +91,14 @@ export default {
               //如果请求成功就让他2秒跳转路由
               setTimeout(() => {
                 this.logining = false
+                console.log(res.data.token)
                 // 缓存token
-                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('userToken', res.data.token)
                 // 缓存用户个人信息
                 localStorage.setItem('userdata', JSON.stringify(res.data))
 
                 this.$router.push({ path: '/home' })
-              }, 3000)
+              }, 2000)
             } else {
               this.$message.error(res.message)
               this.logining = false

@@ -125,7 +125,7 @@ export default {
     };
     },
     handleClick() {
-        this.$router.push({name:'Message',query:{sellerId:this.people.sellerId}})
+        this.$router.push({name:'Message',query:{sellerId:this.people.receiverMobile}})
     },
   },
   mounted() {

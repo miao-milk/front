@@ -182,8 +182,8 @@ export default {
     },
     //点击用户画像事件
     handleClick(row) {
-      console.log(row);
-      //this.$router.push({name:'menberPortrait',query:{shopBuyerId:row.shopBuyerId}})
+      // console.log(row);
+      this.$router.push({name:'menberPortrait',query:{shopBuyerId:row.shopBuyerId}})
     },
     //点击添加标签按钮事件
     handleLabel(row) {
